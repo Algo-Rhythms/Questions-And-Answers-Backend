@@ -11,26 +11,27 @@ app.use(jsonParser);
 app.get('/qa/:product_id', (req, res) => {
 });
 // GET /qa/:question_id/answers
-app.get('/qa/:question_id', (req, res) => {
+app.get('/qa/:question_id/answers', (req, res) => {
 });
 // POST /qa/:product_id
 app.post('qa/:product_id', (req, res) => {
 });
 // POST /qa/:question_id/answers
-app.post('qa/:question_id', (req, res) => {
+app.post('qa/:question_id/answers', (req, res) => {
 });
 // PUT /qa/question/:question_id/helpful
-app.put('qa/:product_id', (req, res) => {
+app.put('qa/question/:product_id/helpful', (req, res) => {
 });
 // PUT /qa/question/:question_id/report
-app.put('qa/:product_id', (req, res) => {
+app.put('qa/question/:question_id/report', (req, res) => {
 });
 // PUT /qa/answer/:answer_id/helpful
-app.put('qa/:product_id', (req, res) => {
+app.put('qa/answer/:answer_id/helpful', (req, res) => {
 });
 // PUT /qa/answer/:answer_id/report
-app.put('qa/:product_id', (req, res) => {
+app.put('qa/answer/:answer_id/report', (req, res) => {
 });
+// DELETE /qa/question_id
 
 app.listen(PORT, () => {
   console.log(`Server running and listening on port: ${PORT}`);
