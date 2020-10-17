@@ -47,7 +47,7 @@ const getProduct = (id) => {
 
 const getQuestions = (id) => {
   getProduct(id)
-    .then((data) => {return data.results})
+    .then((data) => {return data})
     .catch((err) => console.log(err));
 }
 
