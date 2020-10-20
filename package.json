@@ -7,7 +7,7 @@
     "test": "jest",
     "react-dev": "webpack -d --watch",
     "start": "cd client/dist && live-server",
-    "server": "cd server && node server.js",
+    "server": "cd server && node index.js",
     "build": "webpack -p"
   },
   "repository": {

@@ -3,20 +3,18 @@ const fs = require('fs');
 
 // generate photos
 const writePhotos = fs.createWriteStream('photos.csv');
-writePhotos.write('id, url, answer_id\n', 'utf8');
+writePhotos.write('url, answer_id\n', 'utf8');
 
 // generate 10,000,000 photo urls
 const generateAnswerPhotos = (writer, encoding, cb) => {
-  let i = 10000000;
-  let id = 0;
+  let i = 100000;
   function write() {
     let ok = true;
     do {
-      id += 1;
       i -= 1;
-      const answer_id = Math.floor(Math.random() * 10000000) + 1;
-      const url = 'https://www.' + faker.random.word() + faker.random.word() + '.com';
-      const data = `${id},${url},${answer_id}\n`;
+      const answer_id = Math.floor(Math.random() * 100000) + 1;
+      const url = '"https://www.' + faker.random.word() + faker.random.word() + '.com"';
+      const data = `${url},${answer_id}\n`;
       if (i === 0) {
         writer.write(data, encoding, cb);
       } else {
@@ -27,6 +25,7 @@ const generateAnswerPhotos = (writer, encoding, cb) => {
       writer.once('drain', write);
     }
   };
+  
   write();
 };
 

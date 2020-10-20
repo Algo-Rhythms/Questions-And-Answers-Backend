@@ -3,15 +3,28 @@ const app = express();
 const PORT = 3001;
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
+const queries = require('../database/queries.js');
 
 app.use(express.static('../client/dist'));
 app.use(jsonParser);
 
 // GET /qa/:product_id
 app.get('/qa/:product_id', (req, res) => {
+  console.log('Product_id -server- : ', req.params.product_id);
+  const productId = req.params.product_id;
+   queries.getQuestionsByProduct(productId, (err, data) => {
+    if (err) {
+      console.log('Could not fetch questions.');
+      res.status(404);
+    } else {
+      res.status(201).send(data);
+      console.log('Database query successful: ', data);
+    };
+  });
 });
 // GET /qa/:question_id/answers
 app.get('/qa/:question_id/answers', (req, res) => {
+  
 });
 // POST /qa/:product_id
 app.post('qa/:product_id', (req, res) => {
