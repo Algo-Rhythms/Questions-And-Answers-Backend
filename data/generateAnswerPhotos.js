@@ -7,7 +7,7 @@ writePhotos.write('url, answer_id\n', 'utf8');
 
 // generate 10,000,000 photo urls
 const generateAnswerPhotos = (writer, encoding, cb) => {
-  let i = 100000;
+  let i = 1000000;
   function write() {
     let ok = true;
     do {

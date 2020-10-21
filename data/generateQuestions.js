@@ -7,7 +7,7 @@ writeQuestions.write('product_id, body, date_written, asker_name, asker_email, r
 
 // start with 100,000 products
 const generateQuestions = (writer, encoding, cb) => {
-  let i = 10000000;
+  let i = 1000000;
   function write() {
     let ok = true;
     do {

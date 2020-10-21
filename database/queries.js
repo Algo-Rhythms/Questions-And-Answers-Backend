@@ -9,11 +9,11 @@ const getQuestionsByProduct = (req, cb) => {
   SELECT questions.*, answers.*, photos.*
   FROM questions
   FULL OUTER JOIN answers
-  ON questions.id = answers.question_id
+  ON questions.q_id = answers.question_id
   FULL OUTER JOIN photos
-  ON answers.id = photos.answer_id
+  ON answers.a_id = photos.answer_id
   WHERE questions.product_id = ${productId}
-  LIMIT 5;`;
+  LIMIT 10;`;
   connection.query(query, (err, results) => {
     if (err) {
       console.log(err, ' -- Problem with querying database.');
@@ -41,6 +41,5 @@ const getAllProducts = (req, cb) => {
     }
   });
 };
-
 
 module.exports = { getQuestionsByProduct, getAllProducts };

@@ -1,0 +1,3 @@
+\COPY questions(product_id, body, date_written, asker_name, asker_email, reported, helpful) FROM '/Users/kylegraas/documents/work/questions-and-answers-kg/data/questions.csv' WITH (FORMAT csv, header);
+\COPY answers(answer_body, date, answerer_name, helpfulness, email, question_id, reported) FROM '/Users/kylegraas/documents/work/questions-and-answers-kg/data/answers.csv' WITH (FORMAT csv, header);
+\COPY photos(url, answer_id) FROM '/Users/kylegraas/documents/work/questions-and-answers-kg/data/photos.csv' WITH (FORMAT csv, header);
