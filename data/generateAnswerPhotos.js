@@ -13,7 +13,7 @@ const generateAnswerPhotos = (writer, encoding, cb) => {
     do {
       i -= 1;
       const answer_id = Math.floor(Math.random() * 100000) + 1;
-      const url = '"https://www.' + faker.random.word() + faker.random.word() + '.com"';
+      const url = JSON.stringify(faker.image.imageUrl(600, 600, 'fashion', true));
       const data = `${url},${answer_id}\n`;
       if (i === 0) {
         writer.write(data, encoding, cb);
@@ -25,7 +25,7 @@ const generateAnswerPhotos = (writer, encoding, cb) => {
       writer.once('drain', write);
     }
   };
-  
+
   write();
 };
 

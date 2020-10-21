@@ -7,7 +7,7 @@
     "test": "jest",
     "react-dev": "webpack -d --watch",
     "start": "cd client/dist && live-server",
-    "server": "cd server && node index.js",
+    "server": "cd server && nodemon index.js",
     "build": "webpack -p"
   },
   "repository": {
@@ -30,6 +30,7 @@
     "express": "^4.17.1",
     "faker": "^5.1.0",
     "fs": "0.0.1-security",
+    "nodemon": "^2.0.6",
     "pg": "^8.4.1",
     "react": "^16.13.1",
     "react-bootstrap": "^1.3.0",
