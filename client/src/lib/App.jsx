@@ -16,7 +16,7 @@ class App extends React.Component {
       searchInput: '',
       productName: '',
       // getId: Math.floor(Math.random() * 100),
-      getId: 32,
+      getId: 99,
       // 8, 32, 20, 1300
     };
     this.isHelpfulQ = this.isHelpfulQ.bind(this);
@@ -81,7 +81,7 @@ class App extends React.Component {
         <Container className="qa-container">
           <br></br>
           <div className="q-a-jumbotron">
-            <h1 className="q-a-h1">Questions and Answers</h1>
+            <h1 className="q-a-h1">Questions and Answers / Queries</h1>
             <br></br>
             <SearchBar
               searchInput={searchInput}

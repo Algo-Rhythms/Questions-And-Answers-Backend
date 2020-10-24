@@ -8,31 +8,100 @@ const queries = require('../database/queries.js');
 app.use(express.static('../client/dist'));
 app.use(jsonParser);
 
-const questionsObject = () => {
+const dataParser = (data) => {
+  console.log('data: ', data);
+  var rows = data.rows;
+  // create a results array
+  var resultsArray = [];
+  // create a photos array
+  var photos = [];
+  // pull data out of each row and assign it to its appropriate location
+  var answersObj = {};
+  var answer = {}
+  var questionObj = {}
+
+  for (var i = 0; i < rows.length; i++) {
+    const row = rows[i];
+
+    if (data.rows[i - 1] && row.q_id === data.rows[i - 1].q_id) {
+
+      if (data.rows[i - 1].a_id && row.a_id === data.rows[i - 1].a_id) {
+
+        photo = {};
+        photo.id = row.p_id;
+        photo.url = row.url;
+        photos.push(photo);
+
+      } else {
+        // question IDs match but answer IDs do not match
+        if (row.a_id) {
+          answer = {};
+          photo = {};
+          photos = [];
+   
+          photo.id = row.p_id || null;
+          photo.url = row.url || "";
+          photos.push(photo);
   
-  return {
-    "product_id": req.params.id,
-    "results": [{
-          "question_id": 37,
-          "question_body": "Why is this product cheaper here than other sites?",
-          "question_date": "2018-10-18T00:00:00.000Z",
-          "asker_name": "williamsmith",
-          "question_helpfulness": 4,
-          "reported": 0,
-          "answers": {
-            68: {
-              "id": 68,
-              "body": "We are selling it here without any markup from the middleman!",
-              "date": "2018-08-18T00:00:00.000Z",
-              "answerer_name": "Seller",
-              "helpfulness": 4,
-              "photos": []
-              // ...
-            }
-          }
-        }]
-      };
-    };
+          answer.id = row.a_id || null;
+          answer.body = row.answer_body || "";
+          answer.date = row.date || "";
+          answer.answerer_name = row.answerer_name || "";
+          answer.helpfulness = row.helpfulness || null;
+          answer.reported = row.reported || null;
+          answer.question_id = row.question_id || null;
+          answer.photos = photos;
+          // add the answers array AND the photos to the photos array 
+          questionObj.answers[row.a_id] = answer;
+        } 
+      }
+    } else {
+        // if the next question does not have the same q_id, CREATE a new question object (everything is new here starting at the question)
+        if (Object.keys(questionObj).length) {
+          resultsArray.push(questionObj);
+        }
+        // redefine
+        questionObj = {};
+        answersObj = {};
+        answer = {};
+        photos = [];
+        photo = {};
+
+        // define photo object and push to photos array
+        photo.id = row.p_id || null;
+        photo.url = row.url || "";
+        photos.push(photo);
+
+        // define answer object and add to answersObj
+        answer.id = row.a_id || null;
+        answer.body = row.answer_body || "";
+        answer.date = row.date || null;
+        answer.answerer_name = row.answerer_name || "";
+        answer.helpfulness = row.helpfulness || null;
+        answer.reported = row.reported || null;
+        answer.question_id = row.question_id || null;
+        answer.photos = photos;
+        answersObj[row.a_id] = answer;
+
+        // define question object
+        questionObj.question_id = row.q_id;
+        questionObj.question_body = row.body || "";
+        questionObj.question_date = row.question_date || "";
+        questionObj.asker_name = row.asker_name || "";
+        questionObj.question_helpfulness = row.reported || null;
+        questionObj.reported = row.reported || null;
+        questionObj.product_id = row.product_id || null;
+        questionObj.answers = answersObj;
+    }
+  }
+
+  const returnObject = {
+    product_id: data.rows[0].product_id,
+    results: resultsArray
+  }
+  
+  return returnObject;
+};
 
 // GET product by ID
 app.get('/products/:id', (req, res) => {
@@ -43,7 +112,6 @@ app.get('/products/:id', (req, res) => {
       console.log('Could not fetch products.');
       res.status(404);
     } else {
-      console.log('data: ', data);
       res.status(201).send(data);
       console.log('Database query successful: ', data);
     };
@@ -59,8 +127,9 @@ app.get('/qa/:product_id', (req, res) => {
       console.log('Could not fetch questions.');
       res.status(404);
     } else {
-      res.status(201).send(data);
-      console.log('Database query successful: ', data);
+      const results = dataParser(data);
+      console.log('parsed data: ', results);
+      res.status(200).send(results);
     };
   });
 });

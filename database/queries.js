@@ -5,6 +5,7 @@ connection.connect();
 const getQuestionsByProduct = (req, cb) => {
   console.time("AllQuestionsTimer");
   const productId = req;
+
   const query = `
   SELECT questions.*, answers.*, photos.*
   FROM questions
@@ -13,7 +14,9 @@ const getQuestionsByProduct = (req, cb) => {
   FULL OUTER JOIN photos
   ON answers.a_id = photos.answer_id
   WHERE questions.product_id = ${productId}
-  LIMIT 10;`;
+  ORDER BY q_id ASC; 
+  `;
+
   connection.query(query, (err, results) => {
     if (err) {
       console.log(err, ' -- Problem with querying database.');

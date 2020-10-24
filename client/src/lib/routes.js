@@ -3,7 +3,7 @@ import axios from 'axios';
 // gets all Qs for one product
 const reqProductQs = (id, cb) => {
   // const id = Math.floor(Math.random() * 1000);
-  axios.get(`http://52.26.193.201:3000/qa/${id}`, {params: {count: 100}})
+  axios.get(`http://localhost:3001/qa/${id}`, {params: {count: 100}})
       .then((data) => cb(null, data))
       .catch((err) => cb(err, null));
 };
