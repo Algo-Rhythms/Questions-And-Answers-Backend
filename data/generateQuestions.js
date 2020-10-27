@@ -5,9 +5,9 @@ const fs = require('fs');
 const writeQuestions = fs.createWriteStream('questions.csv');
 writeQuestions.write('product_id, body, date_written, asker_name, asker_email, reported, helpful\n', 'utf8');
 
-// start with 100,000 products
+// start with 10,000,000 questions
 const generateQuestions = (writer, encoding, cb) => {
-  let i = 1000000;
+  let i = 10000000;
   function write() {
     let ok = true;
     do {

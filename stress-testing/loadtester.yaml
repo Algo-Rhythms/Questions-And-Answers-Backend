@@ -1,0 +1,32 @@
+config:
+  target: "http://localhost:3001/"
+  http:
+    pool: 100
+  phases:
+    - duration: 30
+      arrivalRate: 15
+      name: Warm up
+    - duration: 60
+      arrivalRate: 25
+      rampTo: 200
+      name: Ramp up load
+    - duration: 60
+      arrivalRate: 400
+      name: Sustained load
+scenarios:
+  - name: 'Get questions list'
+    flow:
+      - get:
+          url: '/'
+      - loop:
+        - get:
+            url: '/qa/{{$randomNumber(1,10000000)}}'
+        count: 2
+  - name: 'Get answers list'
+    flow:
+      - get:
+          url: '/'
+      - loop:
+        - get:
+            url: '/qa/{{$randomNumber(1,10000000)}}/answers'
+        count: 1

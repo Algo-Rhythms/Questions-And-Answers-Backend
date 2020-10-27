@@ -7,12 +7,12 @@ writeAnswers.write('answer_body, date, answerer_name, helpfulness, email, questi
 
 // generate 10,000,000 answers
 const generateAnswers = (writer, encoding, cb) => {
-  let i = 1000000;
+  let i = 10000000;
   function write() {
     let ok = true;
     do {
       i -= 1;
-      const question_id = Math.floor(Math.random() * 1000000) + 1;
+      const question_id = Math.floor(Math.random() * 10000000) + 1;
       const body= '"' + faker.lorem.paragraph() + '."';
       const date = JSON.stringify(faker.date.between('2019-01-01', '2020-09-01?'));
       const answerer_name = '"' + faker.random.word() + '"';

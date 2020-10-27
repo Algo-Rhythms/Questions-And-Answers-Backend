@@ -7,12 +7,12 @@ writePhotos.write('url, answer_id\n', 'utf8');
 
 // generate 10,000,000 photo urls
 const generateAnswerPhotos = (writer, encoding, cb) => {
-  let i = 1000000;
+  let i = 10000000;
   function write() {
     let ok = true;
     do {
       i -= 1;
-      const answer_id = Math.floor(Math.random() * 100000) + 1;
+      const answer_id = Math.floor(Math.random() * 10000000) + 1;
       const url = JSON.stringify(faker.image.imageUrl(600, 600, 'fashion', true));
       const data = `${url},${answer_id}\n`;
       if (i === 0) {

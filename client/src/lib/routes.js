@@ -28,7 +28,7 @@ const reqProductQs = (id, cb) => {
 
 // // mark a question as helpful
 const reqIsHelpfulQ = (questID, cb) => {
-  axios.put(`http://52.26.193.201:3000/qa/question/${questID}/helpful`)
+  axios.put(`http://localhost:3001/qa/question/${questID}/helpful`)
       .then((data) => cb(null, data))
       .catch((err) => cb(err, null));
 };
@@ -43,7 +43,7 @@ const reqIsHelpfulQ = (questID, cb) => {
 
 
 const reqIsHelpfulA = (answerID, cb) => {
-  axios.put(`http://52.26.193.201:3000/qa/answer/${answerID}/helpful`)
+  axios.put(`http://localhost:3001/qa/answer/${answerID}/helpful`)
       .then((data) => cb(null, data))
       .catch((err) => cb(err, null));
 };
